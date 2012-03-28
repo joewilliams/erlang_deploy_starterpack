@@ -1,4 +1,4 @@
-# Erlang release deploy example Chef cookbook
+### Erlang release deploy example Chef cookbook
 
 This is meant to be an example cookbook on how to deploy a tarball based Erlang release.
 
