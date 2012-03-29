@@ -26,7 +26,7 @@
 remote_file "#{node[:example][:path]}/releases/example_#{node[:example][:version]}.tar.gz" do
   source "#{node[:example][:repo_url]}/upgrades/example_#{node[:example][:version]}.tar.gz"
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
   not_if "/usr/bin/test -d #{node[:example][:path]}/releases/#{node[:example][:version]}"
 end
 
@@ -49,7 +49,7 @@ end
 template "#{node[:example][:path]}/releases/#{node[:example][:version]}/sys.config" do
   source "config.erb"
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
   mode 0644
 end
 
@@ -58,7 +58,7 @@ end
 template "#{node[:example][:path]}/releases/#{node[:example][:version]}/vm.args" do
   source "vm.args.erb"
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
   mode 0644
 end
 

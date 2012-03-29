@@ -4,7 +4,12 @@ set[:example][:install_dir] = "/opt"
 set[:example][:path] = "/opt/example"
 set[:example][:log_dir] = "/var/log/example"
 set[:example][:cookie] = "defaultcookie"
+
+set[:example][:uid] = 451
+set[:example][:gid] = 451
 set[:example][:user] = "example"
+set[:example][:group] = "example"
+
 
 set[:example][:host] = "0.0.0.0"
 set[:example][:port] = "8000"

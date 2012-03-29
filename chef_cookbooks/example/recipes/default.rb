@@ -26,13 +26,14 @@
 include_recipe "runit"
 
 # setup the user and group for your erlang release to run as
-group node[:example][:user] do
-  gid 451
+
+group node[:example][:group] do
+  gid node[:example][:gid]
 end
 
 user node[:example][:user] do
-  uid 451
-  gid 451
+  uid node[:example][:uid]
+  gid node[:example][:gid]
   home node[:example][:path]
   shell "/bin/bash"
   system true
@@ -49,7 +50,7 @@ end
 
 bash "install example" do
   user "root"
-  cwd "/opt"
+  cwd "/tmp"
   code <<-EOH
   (tar zxf /tmp/example.tar.gz -C #{node[:example][:install_dir]})
   (chown -R #{node[:example][:user]}:#{node[:example][:user]} #{node[:example][:path]})
@@ -64,21 +65,21 @@ template "#{node[:example][:path]}/bin/example_run" do
   source "example_run.erb"
   mode 0755
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
 end
 
 # create a log dir your release can write to
 
 directory node[:example][:log_dir] do
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
 end
 
 # create a data dir your release can write to (not always needed)
 
 directory node[:example][:data_dir] do
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
 end
 
 # setup the runit service to manage your release
@@ -96,7 +97,7 @@ template "#{node[:example][:path]}/releases/#{node[:example][:version]}/sys.conf
   source "sys.config.erb"
   mode 655
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
   notifies(:restart, resources(:service => "example"))
 end
 
@@ -106,7 +107,7 @@ template "#{node[:example][:path]}/releases/#{node[:example][:version]}/vm.args"
   source "vm.args.erb"
   mode 0644
   owner node[:example][:user]
-  group node[:example][:user]
+  group node[:example][:group]
   notifies(:restart, resources(:service => "example"))
 end
 
