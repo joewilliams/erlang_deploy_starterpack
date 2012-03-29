@@ -2,4 +2,4 @@
 export HOME=<%= node[:example][:path] %>
 exec 2>&1
 
-exec chpst -u <%= node[:name][:user] %> <%= node[:name][:path] %>/bin/name_run
+exec chpst -u <%= node[:name][:user] %> <%= node[:name][:path] %>/bin/example_run
